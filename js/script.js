@@ -227,4 +227,6 @@ resetBtn.addEventListener('click', () => {
     turn = player1Turn
     displayWinner.textContent = null
     winnerExist = false
+    flipCoins[0].classList.remove('view-hidden')
+    flipCoins[1].classList.add('view-hidden')
 })
