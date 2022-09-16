@@ -13,6 +13,7 @@ img {
 
 .view-none {
     display: none;
+    transition: all ease-out 500ms;
 }
 
 .btn-reset {
