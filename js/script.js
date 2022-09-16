@@ -208,7 +208,6 @@ boxes.forEach((box) => {
             winnerExist = true
             return
         }
-
     })
 })
 
