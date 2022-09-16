@@ -3,7 +3,9 @@ const resetBtn = document.getElementById('reset')
 const displayWinner = document.getElementById('display-winner')
 const player1Turn = 0
 const player2Turn = 1
+const flipCoins = document.querySelectorAll('.turn-coin')
 let turn = player1Turn
+let winnerExist = false
 const displayP1Score = document.getElementById('p1')
 const displayP2Score = document.getElementById('p2')
 let p1Score = 0
@@ -39,21 +41,26 @@ boxes.forEach((box) => {
 
         // console.log(redCoin)
         // console.log(yellowCoin)
-
         if(turn === player1Turn) {
             if(!yellowCoin.classList.contains('view-hidden')) {
                return // if yellow here we cant put red
             }
-            redCoin.classList.remove('view-hidden')
-            redCoin.classList.add('red')
-            turn = player2Turn
+            if(!winnerExist) { // prevent incrementing score after winning
+                redCoin.classList.remove('view-hidden')
+                redCoin.classList.add('red')
+                flipCoins.forEach(coin => coin.classList.toggle('view-hidden'))
+                turn = player2Turn
+            }
         }else {
             if(!redCoin.classList.contains('view-hidden')) {
                 return //if red here we cant put yellow
              }
-            yellowCoin.classList.remove('view-hidden')
-            yellowCoin.classList.add('yellow')
-            turn = player1Turn
+             if(!winnerExist) {
+                yellowCoin.classList.remove('view-hidden')
+                yellowCoin.classList.add('yellow')
+                flipCoins.forEach(coin => coin.classList.toggle('view-hidden'))
+                turn = player1Turn
+             }
         }
 
         // For Red
@@ -61,47 +68,71 @@ boxes.forEach((box) => {
         // winning by rows => 3 cases
         if(r1.classList.contains('red') && r2.classList.contains('red') && r3.classList.contains('red')) {
             displayWinner.textContent = declareRedWinner
-            p1Score++
+            if(!winnerExist) {
+                p1Score++
+            }
             displayP1Score.textContent = p1Score
+            winnerExist = true
             return
         }else if(r4.classList.contains('red') && r5.classList.contains('red') && r6.classList.contains('red')) {
             displayWinner.textContent = declareRedWinner
-            p1Score++
+            if(!winnerExist) {
+                p1Score++
+            }
             displayP1Score.textContent = p1Score
+            winnerExist = true
             return
         }else if(r7.classList.contains('red') && r8.classList.contains('red') && r9.classList.contains('red')) {
             displayWinner.textContent = declareRedWinner
-            p1Score++
+            if(!winnerExist) {
+                p1Score++
+            }
             displayP1Score.textContent = p1Score
+            winnerExist = true
             return
         }
         // winning br columns => 3 cases
         else if(r1.classList.contains('red') && r4.classList.contains('red') && r7.classList.contains('red')) {
             displayWinner.textContent = declareRedWinner
-            p1Score++
+            if(!winnerExist) {
+                p1Score++
+            }
             displayP1Score.textContent = p1Score
+            winnerExist = true
             return
         }else if(r2.classList.contains('red') && r5.classList.contains('red') && r8.classList.contains('red')) {
             displayWinner.textContent = declareRedWinner
-            p1Score++
+            if(!winnerExist) {
+                p1Score++
+            }
             displayP1Score.textContent = p1Score
+            winnerExist = true
             return
         }else if(r3.classList.contains('red') && r6.classList.contains('red') && r9.classList.contains('red')) {
             displayWinner.textContent = declareRedWinner
-            p1Score++
+            if(!winnerExist) {
+                p1Score++
+            }
             displayP1Score.textContent = p1Score
+            winnerExist = true
             return
         }
-        // winning br diagonals
+        // winning by diagonals
         else if(r1.classList.contains('red') && r5.classList.contains('red') && r9.classList.contains('red')) {
             displayWinner.textContent = declareRedWinner
-            p1Score++
+            if(!winnerExist) {
+                p1Score++
+            }
             displayP1Score.textContent = p1Score
+            winnerExist = true
             return
         }else if(r3.classList.contains('red') && r5.classList.contains('red') && r7.classList.contains('red')) {
             displayWinner.textContent = declareRedWinner
-            p1Score++
+            if(!winnerExist) {
+                p1Score++
+            }
             displayP1Score.textContent = p1Score
+            winnerExist = true
             return
         } 
 
@@ -110,49 +141,74 @@ boxes.forEach((box) => {
         // winning by rows => 3 cases
         if(y1.classList.contains('yellow') && y2.classList.contains('yellow') && y3.classList.contains('yellow')) {
             displayWinner.textContent = declareYellowWinner
-            p2Score++
+            if(!winnerExist) {
+                p2Score++
+            }
             displayP2Score.textContent = p2Score
+            winnerExist = true
             return
         }else if(y4.classList.contains('yellow') && y5.classList.contains('yellow') && y6.classList.contains('yellow')) {
             displayWinner.textContent = declareYellowWinner
-            p2Score++
+            if(!winnerExist) {
+                p2Score++
+            }
             displayP2Score.textContent = p2Score
+            winnerExist = true
             return
         }else if(y7.classList.contains('yellow') && y8.classList.contains('yellow') && y9.classList.contains('yellow')) {
             displayWinner.textContent = declareYellowWinner
-            p2Score++
+            if(!winnerExist) {
+                p2Score++
+            }
             displayP2Score.textContent = p2Score
+            winnerExist = true
             return
         }
         // winning by columns => 3 cases
         else if(y1.classList.contains('yellow') && y4.classList.contains('yellow') && y7.classList.contains('yellow')) {
             displayWinner.textContent = declareYellowWinner
-            p2Score++
+            if(!winnerExist) {
+                p2Score++
+            }
             displayP2Score.textContent = p2Score
+            winnerExist = true
             return
         }else if(y2.classList.contains('yellow') && y5.classList.contains('yellow') && y8.classList.contains('yellow')) {
             displayWinner.textContent = declareYellowWinner
-            p2Score++
+            if(!winnerExist) {
+                p2Score++
+            }
             displayP2Score.textContent = p2Score
+            winnerExist = true
             return
         }else if(y3.classList.contains('yellow') && y6.classList.contains('yellow') && y9.classList.contains('yellow')) {
             displayWinner.textContent = declareYellowWinner
-            p2Score++
+            if(!winnerExist) {
+                p2Score++
+            }
             displayP2Score.textContent = p2Score
+            winnerExist = true
             return
         }
         // winning by diagonals
         else if(y1.classList.contains('yellow') && y5.classList.contains('yellow') && y9.classList.contains('yellow')) {
             displayWinner.textContent = declareYellowWinner
-            p2Score++
+            if(!winnerExist) {
+                p2Score++
+            }
             displayP2Score.textContent = p2Score
+            winnerExist = true
             return
         }else if(y3.classList.contains('yellow') && y5.classList.contains('yellow') && y7.classList.contains('yellow')) {
             displayWinner.textContent = declareYellowWinner
-            p2Score++
+            if(!winnerExist) {
+                p2Score++
+            }
             displayP2Score.textContent = p2Score
+            winnerExist = true
             return
         }
+
     })
 })
 
@@ -170,4 +226,5 @@ resetBtn.addEventListener('click', () => {
     })
     turn = player1Turn
     displayWinner.textContent = null
+    winnerExist = false
 })
