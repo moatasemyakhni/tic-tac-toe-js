@@ -12,9 +12,15 @@ boxes.forEach((box) => {
         console.log(yellowCoin)
 
         if(turn === player1Turn) {
+            if(!yellowCoin.classList.contains('view-none')) {
+               return 
+            }
             redCoin.classList.remove('view-none')
             turn = player2Turn
         }else {
+            if(!redCoin.classList.contains('view-none')) {
+                return 
+             }
             yellowCoin.classList.remove('view-none')
             turn = player1Turn
         }
