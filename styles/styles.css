@@ -15,6 +15,30 @@ img {
     display: none;
 }
 
+.btn-reset {
+    width: 100px;
+    padding: 10px;
+    background-color: indigo;
+    color: white;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    border-radius: 30px;
+    text-decoration: none;
+    margin-bottom: 30px;
+    
+    border: 2px solid indigo;
+}
+
+.btn-reset:hover {
+    background-color: white;
+    color: indigo;
+}
+
+.btn-reset:active {
+    background-color: rgba(75, 0, 130, 0.1);
+}
+
 /* start styling */
 .title {
     text-align: center;
@@ -59,4 +83,8 @@ img {
     cursor: pointer;
     width: 50px;
     
+}
+
+.winner {
+    text-align: center;
 }
