@@ -45,7 +45,7 @@ boxes.forEach((box) => {
             if(!yellowCoin.classList.contains('view-hidden')) {
                return // if yellow here we cant put red
             }
-            if(!winnerExist) { // prevent incrementing score after winning
+            if(!winnerExist) {// prevent adding more coins when game finish(someone wins)
                 redCoin.classList.remove('view-hidden')
                 redCoin.classList.add('red')
                 flipCoins.forEach(coin => coin.classList.toggle('view-hidden'))
@@ -68,7 +68,7 @@ boxes.forEach((box) => {
         // winning by rows => 3 cases
         if(r1.classList.contains('red') && r2.classList.contains('red') && r3.classList.contains('red')) {
             displayWinner.textContent = declareRedWinner
-            if(!winnerExist) {
+            if(!winnerExist) { // prevent incrementing score after winning
                 p1Score++
             }
             displayP1Score.textContent = p1Score
