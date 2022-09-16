@@ -8,8 +8,8 @@ resetBtn.addEventListener('click', () => {
     const redImages = document.querySelectorAll('.red')
     const yellowImages = document.querySelectorAll('.yellow')
 
-    redImages.forEach(redImage => redImage.classList.add('view-none'))
-    yellowImages.forEach(yellowImage => yellowImage.classList.add('view-none'))
+    redImages.forEach(redImage => redImage.classList.add('view-hidden'))
+    yellowImages.forEach(yellowImage => yellowImage.classList.add('view-hidden'))
 })
 
 boxes.forEach((box) => {
@@ -21,16 +21,16 @@ boxes.forEach((box) => {
         // console.log(yellowCoin)
 
         if(turn === player1Turn) {
-            if(!yellowCoin.classList.contains('view-none')) {
-               return 
+            if(!yellowCoin.classList.contains('view-hidden')) {
+               return // if yellow here we cant put red
             }
-            redCoin.classList.remove('view-none')
+            redCoin.classList.remove('view-hidden')
             turn = player2Turn
         }else {
-            if(!redCoin.classList.contains('view-none')) {
-                return 
+            if(!redCoin.classList.contains('view-hidden')) {
+                return //if red here we cant put yellow
              }
-            yellowCoin.classList.remove('view-none')
+            yellowCoin.classList.remove('view-hidden')
             turn = player1Turn
         }     
     })
