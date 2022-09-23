@@ -10,6 +10,8 @@ const displayP1Score = document.getElementById('p1')
 const displayP2Score = document.getElementById('p2')
 let p1Score = 0
 let p2Score = 0
+const totBoxes = 9
+let nbOfSteps = 0 //when reached 9 and no wins, it means tie
 
 const y1 = document.querySelector('.y-1')
 const y2 = document.querySelector('.y-2')
@@ -50,6 +52,7 @@ boxes.forEach((box) => {
                 redCoin.classList.add('red')
                 flipCoins.forEach(coin => coin.classList.toggle('view-hidden'))
                 turn = player2Turn
+                nbOfSteps++
             }
         }else {
             if(!redCoin.classList.contains('view-hidden')) {
@@ -60,6 +63,7 @@ boxes.forEach((box) => {
                 yellowCoin.classList.add('yellow')
                 flipCoins.forEach(coin => coin.classList.toggle('view-hidden'))
                 turn = player1Turn
+                nbOfSteps++
              }
         }
 
@@ -208,6 +212,9 @@ boxes.forEach((box) => {
             winnerExist = true
             return
         }
+        console.log("nb of steps", nbOfSteps)
+        if(nbOfSteps === totBoxes)
+            displayWinner.textContent = "Tie"
     })
 })
 
@@ -228,4 +235,5 @@ resetBtn.addEventListener('click', () => {
     winnerExist = false
     flipCoins[0].classList.remove('view-hidden')
     flipCoins[1].classList.add('view-hidden')
+    nbOfSteps = 0
 })
