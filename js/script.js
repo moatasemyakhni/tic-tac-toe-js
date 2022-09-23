@@ -49,6 +49,10 @@ const board = [
     [b7, b8, b9]
 ]
 
+// console.log(board[0][0])
+// board[0][0] = 1
+// console.log(board[0][0])
+
 function isMovesLeft() {
     boxes.forEach(box => {
         const redCoin = box.firstChild.nextSibling
@@ -99,9 +103,86 @@ function evaluate() {
     return 0
 }
 
+function minimax(depth, isMax) {
+    let score = evaluate()
 
+    if(score == 10) {
+        return score
+    }
+    if(score == -10) {
+        return score
+    }
+    if(isMovesLeft() == false) {
+        return 0
+    }
 
+    //maximizer move
+    if(isMax) {
+        let best = -1000
 
+        for(let i=0;i<3;i++) {
+            for(let j=0;j<3;j++) {
+                if(board[i][j].childNodes[1].classList.contains('view-hidden') && board[i][j].childNodes[3].classList.contains('view-hidden')) {
+                    board[i][j].childNodes[1].classList.remove('view-hidden') //player
+
+                    best = Math.max(best, minimax(depth+1, !isMax))
+                    
+                    //undo
+                    board[i][j].childNodes[1].classList.add('view-hidden') //player
+                }
+            }
+        }
+        return best
+    }else {
+        let best = 1000
+        for(let i=0;i<3;i++) {
+            for(let j=0;j<3;j++) {
+                if(board[i][j].childNodes[1].classList.contains('view-hidden') && board[i][j].childNodes[3].classList.contains('view-hidden')) {
+                    board[i][j].childNodes[3].classList.remove('view-hidden') //ai
+
+                    best = Math.min(best, minimax(depth+1, !isMax))
+                    
+                    //undo
+                    board[i][j].childNodes[3].classList.add('view-hidden') //ai
+                }
+            }
+        }
+        return best
+    }
+}
+let rowCol = {
+    row: -1,
+    col: -1
+}
+function findBestMove() {
+    bestVal = -1000
+    rowCol.row = -1
+    rowCol.col = -1
+
+    for(let i=0;i<3;i++) {
+        for(let j=0;j<3;j++) {
+            if(board[i][j].childNodes[1].classList.contains('view-hidden') && board[i][j].childNodes[3].classList.contains('view-hidden')) {
+                
+                board[i][j].childNodes[1].classList.remove('view-hidden') //player
+
+                let moveVal = minimax(0, false)
+
+                board[i][j].childNodes[1].classList.add('view-hidden') //player
+
+                if(moveVal > bestVal) {
+                    rowCol.row = i
+                    rowCol.col = j
+                    bestVal = moveVal
+                }
+            }
+        }
+    }
+    console.log("The value of the best Move is :", bestVal)
+    console.log("Column:", rowCol.col, "Row:", rowCol.row)
+    return rowCol
+}
+
+console.log(findBestMove())
 const declareYellowWinner = "Yellow Won!"
 const declareRedWinner = "Red Won!"
 
@@ -281,9 +362,10 @@ boxes.forEach((box) => {
             winnerExist = true
             return
         }
-        console.log("nb of steps", nbOfSteps)
+        //console.log("nb of steps", nbOfSteps)
         if(nbOfSteps === totBoxes)
             displayWinner.textContent = "Tie"
+        console.log(findBestMove())
     })
 })
 
