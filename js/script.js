@@ -54,13 +54,16 @@ const board = [
 // console.log(board[0][0])
 
 function isMovesLeft() {
-    boxes.forEach(box => {
-        const redCoin = box.firstChild.nextSibling
-        const yellowCoin = box.lastChild.previousSibling
-        if(redCoin.classList.contains('view-hidden') && yellowCoin.classList.contains('view-hidden')) {
-            return true
+    for(let i=0;i<3;i++) {
+        for(let j=0;j<3;j++) {
+            if(board[i][j].childNodes[1].classList.contains('view-hidden') && board[i][j].childNodes[3].classList.contains('view-hidden')) {
+                
+                if(board[i][j].childNodes[1].classList.contains('view-hidden') && board[i][j].childNodes[3].classList.contains('view-hidden')) {
+                    return true
+                }
+            }
         }
-    })
+    }
     return false
 }//yellow
 // ChildNodes[1] is red
@@ -68,7 +71,7 @@ function isMovesLeft() {
 // console.log(board[0][0].childNodes)
 // console.log(board[0][0].childNodes[3].classList.contains('view-hidden') == board[0][1].childNodes[3].classList.contains('view-hidden'))
 // console.log(board[0][0](board[0][1]))
-
+console.log("moves left:", isMovesLeft())
 function evaluate() {
     for(let row=0; row<3;row++) {
         if(!board[row][0].childNodes[1].classList.contains('view-hidden') && !board[row][1].childNodes[1].classList.contains('view-hidden') && !board[row][2].childNodes[1].classList.contains('view-hidden')) {
@@ -177,12 +180,14 @@ function findBestMove() {
             }
         }
     }
-    console.log("The value of the best Move is :", bestVal)
-    console.log("Column:", rowCol.col, "Row:", rowCol.row)
+    // console.log("The value of the best Move is :", bestVal)
+    // console.log("Column:", rowCol.col, "Row:", rowCol.row)
     return rowCol
 }
 
-console.log(findBestMove())
+// console.log(findBestMove())
+
+//board[0][0].childNodes[1].classList.remove('view-hidden')
 const declareYellowWinner = "Yellow Won!"
 const declareRedWinner = "Red Won!"
 
@@ -194,29 +199,38 @@ boxes.forEach((box) => {
         // console.log(redCoin)
         // console.log(yellowCoin)
         if(turn === player1Turn) {
-            if(!yellowCoin.classList.contains('view-hidden')) {
+            if(!yellowCoin.classList.contains('view-hidden') || !redCoin.classList.contains('view-hidden')) {
                return // if yellow here we cant put red
             }
             if(!winnerExist) {// prevent adding more coins when game finish(someone wins)
                 redCoin.classList.remove('view-hidden')
                 redCoin.classList.add('red')
                 flipCoins.forEach(coin => coin.classList.toggle('view-hidden'))
-                turn = player2Turn
-                nbOfSteps++
+                //turn = player2Turn // no need for player 2
+                //nbOfSteps++
             }
-        }else {
-            if(!redCoin.classList.contains('view-hidden')) {
-                return //if red here we cant put yellow
-             }
-             if(!winnerExist) {
-                yellowCoin.classList.remove('view-hidden')
-                yellowCoin.classList.add('yellow')
-                flipCoins.forEach(coin => coin.classList.toggle('view-hidden'))
-                turn = player1Turn
-                nbOfSteps++
-             }
         }
+        //player 2
+        // else {
+        //     if(!redCoin.classList.contains('view-hidden')) {
+        //         return //if red here we cant put yellow
+        //      }
+        //      if(!winnerExist) {
+        //         yellowCoin.classList.remove('view-hidden')
+        //         yellowCoin.classList.add('yellow')
+        //         flipCoins.forEach(coin => coin.classList.toggle('view-hidden'))
+        //         turn = player1Turn
+        //         nbOfSteps++
+        //      }
+        // }
 
+        //ai
+        nbOfSteps += 2
+        if(isMovesLeft()) {
+            const aiYellow = findBestMove()
+            board[aiYellow.row][aiYellow.col].childNodes[3].classList.remove('view-hidden')
+        }
+        //console.log("moves left:", isMovesLeft())
         // For Red
         // total winning conditions => 8 cases:
         // winning by rows => 3 cases
@@ -362,10 +376,11 @@ boxes.forEach((box) => {
             winnerExist = true
             return
         }
-        //console.log("nb of steps", nbOfSteps)
-        if(nbOfSteps === totBoxes)
+        console.log("nb of steps", nbOfSteps)
+        if(nbOfSteps >= totBoxes)
             displayWinner.textContent = "Tie"
-        console.log(findBestMove())
+        // console.log(findBestMove())
+
     })
 })
 
