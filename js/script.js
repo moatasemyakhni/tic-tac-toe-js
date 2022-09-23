@@ -225,13 +225,6 @@ boxes.forEach((box) => {
         //      }
         // }
 
-        //ai
-        nbOfSteps += 2
-        if(isMovesLeft()) {
-            const aiYellow = findBestMove()
-            board[aiYellow.row][aiYellow.col].childNodes[3].classList.remove('view-hidden')
-        }
-        //console.log("moves left:", isMovesLeft())
         // For Red
         // total winning conditions => 8 cases:
         // winning by rows => 3 cases
@@ -305,6 +298,16 @@ boxes.forEach((box) => {
             return
         } 
 
+        //ai
+        
+        if(isMovesLeft()) {
+            if(!winnerExist) {
+                const aiYellow = findBestMove()
+                board[aiYellow.row][aiYellow.col].childNodes[3].classList.remove('view-hidden')
+            }
+        }
+        //console.log("moves left:", isMovesLeft())
+
         //For yellow
         // total winning conditions => 8 cases:
         // winning by rows => 3 cases
@@ -377,6 +380,7 @@ boxes.forEach((box) => {
             winnerExist = true
             return
         }
+        nbOfSteps += 2
         console.log("nb of steps", nbOfSteps)
         if(nbOfSteps >= totBoxes)
             displayWinner.textContent = "Tie"
