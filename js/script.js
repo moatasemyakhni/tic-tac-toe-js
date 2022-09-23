@@ -65,10 +65,11 @@ const isMovesLeft = () => {
         }
     }
     return false
-}//yellow
+}
 
-console.log("moves left:", isMovesLeft())
-function evaluate() {
+ 
+const evaluate = () => {
+    // win in rows
     for(let row=0; row<3;row++) {
         if(!board[row][0].childNodes[1].classList.contains('view-hidden') && !board[row][1].childNodes[1].classList.contains('view-hidden') && !board[row][2].childNodes[1].classList.contains('view-hidden')) {
             return 10 //red wins
@@ -77,6 +78,7 @@ function evaluate() {
         }
     }
 
+    // win in columns
     for(let col=0; col < 3; col++) {
         if(!board[0][col].childNodes[1].classList.contains('view-hidden') && !board[1][col].childNodes[1].classList.contains('view-hidden') && !board[2][col].childNodes[1].classList.contains('view-hidden')) {
             return 10 //red wins
@@ -85,7 +87,7 @@ function evaluate() {
         }
     }
 
-    //diagonals
+    // win in diagonals
     if(!board[0][0].childNodes[1].classList.contains('view-hidden') && !board[1][1].childNodes[1].classList.contains('view-hidden') && !board[2][2].childNodes[1].classList.contains('view-hidden')) {
         return 10 //red wins
     }else if(!board[0][0].childNodes[3].classList.contains('view-hidden') && !board[1][1].childNodes[3].classList.contains('view-hidden') && !board[2][2].childNodes[3].classList.contains('view-hidden')) {
@@ -103,7 +105,7 @@ function evaluate() {
 }
 
 function minimax(depth, isMax) {
-    let score = evaluate()
+    const score = evaluate()
 
     if(score == 10) {
         return score
