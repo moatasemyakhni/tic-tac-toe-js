@@ -33,6 +33,16 @@ const r7 = document.querySelector('.r-7')
 const r8 = document.querySelector('.r-8')
 const r9 = document.querySelector('.r-9')
 
+const b1 = document.querySelector('.r-1')
+const b2 = document.querySelector('.r-2')
+const b3 = document.querySelector('.r-3')
+const b4 = document.querySelector('.r-4')
+const b5 = document.querySelector('.r-5')
+const b6 = document.querySelector('.r-6')
+const b7 = document.querySelector('.r-7')
+const b8 = document.querySelector('.r-8')
+const b9 = document.querySelector('.r-9')
+
 const declareYellowWinner = "Yellow Won!"
 const declareRedWinner = "Red Won!"
 
