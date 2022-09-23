@@ -104,9 +104,8 @@ const evaluate = () => {
     return 0
 }
 
-function minimax(depth, isMax) {
+const minimax = (depth, isMax) => {
     const score = evaluate()
-
     if(score == 10) {
         return score
     }
@@ -120,14 +119,11 @@ function minimax(depth, isMax) {
     //maximizer move
     if(isMax) {
         let best = -1000
-
         for(let i=0;i<3;i++) {
             for(let j=0;j<3;j++) {
                 if(board[i][j].childNodes[1].classList.contains('view-hidden') && board[i][j].childNodes[3].classList.contains('view-hidden')) {
                     board[i][j].childNodes[1].classList.remove('view-hidden') //player
-
                     best = Math.max(best, minimax(depth+1, !isMax))
-                    
                     //undo
                     board[i][j].childNodes[1].classList.add('view-hidden') //player
                 }
@@ -140,9 +136,7 @@ function minimax(depth, isMax) {
             for(let j=0;j<3;j++) {
                 if(board[i][j].childNodes[1].classList.contains('view-hidden') && board[i][j].childNodes[3].classList.contains('view-hidden')) {
                     board[i][j].childNodes[3].classList.remove('view-hidden') //ai
-
                     best = Math.min(best, minimax(depth+1, !isMax))
-                    
                     //undo
                     board[i][j].childNodes[3].classList.add('view-hidden') //ai
                 }
@@ -151,11 +145,12 @@ function minimax(depth, isMax) {
         return best
     }
 }
-let rowCol = {
+
+const rowCol = {
     row: -1,
     col: -1
 }
-function findBestMove() {
+const findBestMove = () => {
     bestVal = -1000
     rowCol.row = -1
     rowCol.col = -1
@@ -163,13 +158,9 @@ function findBestMove() {
     for(let i=0;i<3;i++) {
         for(let j=0;j<3;j++) {
             if(board[i][j].childNodes[1].classList.contains('view-hidden') && board[i][j].childNodes[3].classList.contains('view-hidden')) {
-                
                 board[i][j].childNodes[1].classList.remove('view-hidden') //player
-
-                let moveVal = minimax(0, false)
-
+                const moveVal = minimax(0, false)
                 board[i][j].childNodes[1].classList.add('view-hidden') //player
-
                 if(moveVal > bestVal) {
                     rowCol.row = i
                     rowCol.col = j
@@ -185,7 +176,6 @@ function findBestMove() {
 }
 
 // console.log(findBestMove())
-
 //board[0][0].childNodes[1].classList.remove('view-hidden')
 const declareYellowWinner = "Yellow Won!"
 const declareRedWinner = "Red Won!"
