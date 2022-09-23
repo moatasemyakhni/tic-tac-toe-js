@@ -49,28 +49,24 @@ const board = [
     [b7, b8, b9]
 ]
 
-// console.log(board[0][0])
-// board[0][0] = 1
-// console.log(board[0][0])
+// console.log(board[0][0].childNodes)
+// console.log(board[0][0].childNodes[3].classList.contains('view-hidden') == board[0][1].childNodes[3].classList.contains('view-hidden'))
+// console.log(board[0][0](board[0][1]))
 
-function isMovesLeft() {
+// ChildNodes[1] is red
+// childNodes[3] is yellow
+const isMovesLeft = () => {
     for(let i=0;i<3;i++) {
         for(let j=0;j<3;j++) {
             if(board[i][j].childNodes[1].classList.contains('view-hidden') && board[i][j].childNodes[3].classList.contains('view-hidden')) {
-                
-                if(board[i][j].childNodes[1].classList.contains('view-hidden') && board[i][j].childNodes[3].classList.contains('view-hidden')) {
-                    return true
-                }
+                // if at least one box have both its images hidden, then we still can play
+                return true
             }
         }
     }
     return false
 }//yellow
-// ChildNodes[1] is red
-// childNodes[3] is yellow
-// console.log(board[0][0].childNodes)
-// console.log(board[0][0].childNodes[3].classList.contains('view-hidden') == board[0][1].childNodes[3].classList.contains('view-hidden'))
-// console.log(board[0][0](board[0][1]))
+
 console.log("moves left:", isMovesLeft())
 function evaluate() {
     for(let row=0; row<3;row++) {
@@ -182,7 +178,7 @@ function findBestMove() {
     }
     // console.log("The value of the best Move is :", bestVal)
     // console.log("Column:", rowCol.col, "Row:", rowCol.row)
-    board[rowCol.row][rowCol.col].childNodes[3].classList.add('yellow')
+    board[rowCol.row][rowCol.col].childNodes[3].classList.add('yellow') // this will decide if yellow will win or not
     return rowCol
 }
 
