@@ -33,15 +33,74 @@ const r7 = document.querySelector('.r-7')
 const r8 = document.querySelector('.r-8')
 const r9 = document.querySelector('.r-9')
 
-const b1 = document.querySelector('.box1')
-const b2 = document.querySelector('.box2')
-const b3 = document.querySelector('.box3')
-const b4 = document.querySelector('.box4')
-const b5 = document.querySelector('.box5')
-const b6 = document.querySelector('.box6')
-const b7 = document.querySelector('.box7')
-const b8 = document.querySelector('.box8')
-const b9 = document.querySelector('.box9')
+const b1 = document.querySelector('.box-1')
+const b2 = document.querySelector('.box-2')
+const b3 = document.querySelector('.box-3')
+const b4 = document.querySelector('.box-4')
+const b5 = document.querySelector('.box-5')
+const b6 = document.querySelector('.box-6')
+const b7 = document.querySelector('.box-7')
+const b8 = document.querySelector('.box-8')
+const b9 = document.querySelector('.box-9')
+
+const board = [
+    [b1, b2, b3],
+    [b4, b5, b6],
+    [b7, b8, b9]
+]
+
+function isMovesLeft() {
+    boxes.forEach(box => {
+        const redCoin = box.firstChild.nextSibling
+        const yellowCoin = box.lastChild.previousSibling
+        if(redCoin.classList.contains('view-hidden') && yellowCoin.classList.contains('view-hidden')) {
+            return true
+        }
+    })
+    return false
+}//yellow
+// ChildNodes[1] is red
+// childNodes[3] is yellow
+// console.log(board[0][0].childNodes)
+// console.log(board[0][0].childNodes[3].classList.contains('view-hidden') == board[0][1].childNodes[3].classList.contains('view-hidden'))
+// console.log(board[0][0](board[0][1]))
+
+function evaluate() {
+    for(let row=0; row<3;row++) {
+        if(!board[row][0].childNodes[1].classList.contains('view-hidden') && !board[row][1].childNodes[1].classList.contains('view-hidden') && !board[row][2].childNodes[1].classList.contains('view-hidden')) {
+            return 10 //red wins
+        }else if(!board[row][0].childNodes[3].classList.contains('view-hidden') && !board[row][1].childNodes[3].classList.contains('view-hidden') && !board[row][2].childNodes[3].classList.contains('view-hidden')) {
+            return -10 //yellow wins
+        }
+    }
+
+    for(let col=0; col < 3; col++) {
+        if(!board[0][col].childNodes[1].classList.contains('view-hidden') && !board[1][col].childNodes[1].classList.contains('view-hidden') && !board[2][col].childNodes[1].classList.contains('view-hidden')) {
+            return 10 //red wins
+        }else if(!board[0][col].childNodes[3].classList.contains('view-hidden') && !board[1][col].childNodes[3].classList.contains('view-hidden') && !board[2][col].childNodes[3].classList.contains('view-hidden')) {
+            return -10 //yellow wins
+        }
+    }
+
+    //diagonals
+    if(!board[0][0].childNodes[1].classList.contains('view-hidden') && !board[1][1].childNodes[1].classList.contains('view-hidden') && !board[2][2].childNodes[1].classList.contains('view-hidden')) {
+        return 10 //red wins
+    }else if(!board[0][0].childNodes[3].classList.contains('view-hidden') && !board[1][1].childNodes[3].classList.contains('view-hidden') && !board[2][2].childNodes[3].classList.contains('view-hidden')) {
+        return -10 //yellow wins
+    }
+
+    if(!board[0][2].childNodes[1].classList.contains('view-hidden') && !board[1][1].childNodes[1].classList.contains('view-hidden') && !board[2][0].childNodes[1].classList.contains('view-hidden')) {
+        return 10 //red wins
+    }else if(!board[0][2].childNodes[3].classList.contains('view-hidden') && !board[1][1].childNodes[3].classList.contains('view-hidden') && !board[2][0].childNodes[3].classList.contains('view-hidden')) {
+        return -10 //yellow wins
+    }
+
+    //if now win
+    return 0
+}
+
+
+
 
 const declareYellowWinner = "Yellow Won!"
 const declareRedWinner = "Red Won!"
