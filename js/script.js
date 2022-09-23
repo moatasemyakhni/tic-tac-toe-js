@@ -182,6 +182,7 @@ function findBestMove() {
     }
     // console.log("The value of the best Move is :", bestVal)
     // console.log("Column:", rowCol.col, "Row:", rowCol.row)
+    board[rowCol.row][rowCol.col].childNodes[3].classList.add('yellow')
     return rowCol
 }
 
